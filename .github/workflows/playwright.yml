@@ -1,20 +1,33 @@
-name: Playwright Tests
+name: Playwright Multi Environment Tests
 
 on:
   push:
     branches: [main]
-
   pull_request:
     branches: [main]
-
   workflow_dispatch:
+
 
 jobs:
 
   test:
 
+    strategy:
+      matrix:
+        environment: [qa, stage]
+
     runs-on: ubuntu-latest
-    environment: qa
+
+    environment: ${{ matrix.environment }}
+
+    env:
+      ENV: ${{ matrix.environment }}
+
+      BASE_URL: ${{ vars.BASE_URL }}
+
+      APP_USERNAME: ${{ secrets.APP_USERNAME }}
+      APP_PASSWORD: ${{ secrets.APP_PASSWORD }}
+      API_TOKEN: ${{ secrets.API_TOKEN }}
 
     steps:
 
@@ -32,20 +45,26 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
 
-      - name: Run Playwright tests
-        env:
-          ENV: qa
-          BASE_URL: ${{ vars.BASE_URL }}
-          APP_USERNAME: ${{ secrets.APP_USERNAME }}
-          APP_PASSWORD: ${{ secrets.APP_PASSWORD }}
-          API_TOKEN: ${{ secrets.API_TOKEN }}
+      - name: Show selected environment
+        run: |
+          echo "Running on environment: $ENV"
+          echo "Base URL: $BASE_URL"
 
-        run: npx playwright test
+      - name: Run Smoke Tests on PR
+        if: github.event_name == 'pull_request'
+        run: npx playwright test --grep "@smoke"
+      
+      - name: Run Smoke Tests on Schedule
+        if: github.event_name == 'schedule'
+        run: npx playwright test --grep "@regression"    
+      - name: Run Smoke Tests on Run Tests Manually
+        if: github.event_name == 'workflow_dispatch'
+        run: npx playwright test 
 
       - name: Upload Playwright Report
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v5
         with:
-          name: playwright-report
+          name: playwright-report-${{ matrix.environment }}
           path: reports/html-report/
           retention-days: 30
