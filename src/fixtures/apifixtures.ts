@@ -1,5 +1,5 @@
 import {test as baseTest} from '@playwright/test'
-import { ApiHelper } from '../api/apiHelper'
+import { ApiHelper } from '../api/APIHelper'
 
 
 

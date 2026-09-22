@@ -9,7 +9,7 @@ let AUTH_HEADER = { Authorization: `Bearer ${TOKEN}` };
 
 async function createUser(apiHelper:ApiHelper) {
    let userData = {
-            name: 'Playwright API1',
+            name: 'Playwright API',
             email: `automation_${Date.now()}@open.com`,
             gender: 'male',
             status: 'active'

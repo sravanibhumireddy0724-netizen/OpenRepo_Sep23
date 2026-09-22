@@ -7,7 +7,7 @@ test.beforeEach(async({loginPage})=>{
 })
 
 
-test('HomePage Headers verification',async({homePage})=>{
+test('HomePage Headers verifications',async({homePage})=>{
 
     const pageTitle= await homePage.getHomePageTitle();
 
