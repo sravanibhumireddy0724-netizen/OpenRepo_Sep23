@@ -7,7 +7,7 @@ let AUTH_HEADER = { Authorization: `Bearer ${TOKEN}` };
 
 let userId: number;
 
-test.describe.serial('running e2e go rest crud api tests', () => {
+test.describe.serial('running end2e go rest crud api tests', () => {
 
     //GET test:
     test('@regression GET API -- get all users', async ({ apiHelper }) => {
