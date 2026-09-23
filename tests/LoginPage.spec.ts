@@ -14,14 +14,14 @@ homePage=new HomePage(page);
 });
 
 
-test('Verifyting Login functionality', async ({ page }) => {
+test('Verifyting Login functionality@smoke', async ({ page }) => {
 await loginPage.doLogin('dev123@nal.com','Test@123');
 expect.soft(await homePage.isLogoutLinkExist()).toBeTruthy();
 
   
 });
 
-test('Verifyting Login Error Message', async ({ page }) => {
+test('Verifyting Login Error Message@regression@regression', async ({ page }) => {
 await loginPage.doLogin('dev123@nal.com23','Test@123');
 expect.soft(await loginPage.isInvalidLoginErrorDisplayed()).toBeTruthy();
 });

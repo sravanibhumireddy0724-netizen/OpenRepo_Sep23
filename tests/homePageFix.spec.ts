@@ -7,7 +7,7 @@ test.beforeEach(async({loginPage})=>{
 })
 
 
-test('HomePage Headers verifications',async({homePage})=>{
+test('HomePage Headers verifications@regression',async({homePage})=>{
 
     const pageTitle= await homePage.getHomePageTitle();
 
@@ -16,7 +16,7 @@ test('HomePage Headers verifications',async({homePage})=>{
     
     let allHeaders=await homePage.getHomePageHeaders();
     
-    console.log("Home page Headers:"+allHeaders);
+    console.log("Home page Headers are:"+allHeaders);
     
     expect.soft(allHeaders).toHaveLength(4);
     
