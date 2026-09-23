@@ -26,4 +26,7 @@ await loginPage.doLogin('dev123@nal.com23','Test@123');
 expect.soft(await loginPage.isInvalidLoginErrorDisplayed()).toBeTruthy();
 });
 
+test('Add search @regression', async ({ }) => {
+console.log("Adding search functionality");
+});
 
